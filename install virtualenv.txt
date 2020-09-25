@@ -2,6 +2,14 @@
 
 2.virtualenv venv
 
-3.venv\scripts\activate
+3.venv\scripts\activate .. deactivate.bat
 
-4.pip install django
+4.(venv)pip install django
+
+
+(venv)django-admin startproject discussion_board .
+
+(venv)py manage.py runserver
+
+
+
