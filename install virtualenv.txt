@@ -1,0 +1,7 @@
+1.pip install virtualen 
+
+2.virtualenv venv
+
+3.venv\scripts\activate
+
+4.pip install django
