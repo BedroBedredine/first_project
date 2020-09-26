@@ -1,4 +1,4 @@
-1.pip install virtualen 
+1.pip install virtualenv
 
 2.virtualenv venv
 
@@ -12,6 +12,8 @@
 (venv)py manage.py runserver
 
 (venv)django-admin startapp boards
+
+py manage.py migrate ##create DB tables
 
 
 
