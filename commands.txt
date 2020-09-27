@@ -14,6 +14,27 @@
 (venv)django-admin startapp boards
 
 py manage.py migrate ##create DB tables
+py manage.py makemigrations ##make models ...
+
+py manage.py shell
+>>>from boards.models import Board
+>>>board = Board(name='web programing', description='This board will speak about all web language')
+>>>board.save()
+>>>board.id
+1
+>>>board.name
+'web programing'
+
+>>>Board.objects.all() ## before __str__ 
+<QuerySet [<Board: Board object (1)>]>
+>>>exit()
+
+>>> from boards.models import Board ## after __str__ ## secure sqlinj
+>>> Board.objects.all()
+<QuerySet [<Board: web programing>]>
+
+
+                     
 
 
 
