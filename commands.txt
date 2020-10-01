@@ -34,11 +34,6 @@ py manage.py shell
 <QuerySet [<Board: web programing>]>
 
 py manage.py createsuperuser
-Username (leave blank to use 'bedro'): Bedro
-Email address: pedromppedromp2@gmail.com
-Password:
-Password (again):
-Superuser created successfully.
 
 
                      
