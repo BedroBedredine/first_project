@@ -35,6 +35,29 @@ py manage.py shell
 
 py manage.py createsuperuser
 
+'''
+shell
+'''
+>>> from boards.models import Board
+>>> board = Board.objects.get(name='Web Application')
+>>> board.topics.all()
+<QuerySet [<Topic: afsdfsdfsadfsdfsdfsdfsad>, <Topic: web application>, <Topic: django>, <Topic: abdelghani>]>
+>>> board.topics.count()
+4
+>>> from boards.models import Post
+>>> Post.objects.all()
+<QuerySet [<Post: fsdfsdfsdafsdfsdfds>, <Post: devosp>, <Post: iugighgjhgj>, <Post: 651132132l;hjkbhjh>, <Post: test>, <Post: python freamwork>, <Post: bedredine>, <Post: dfsdfsd>, <Post: 223232323212332>, <Post: 223232323212332>, <Post: 223232323212332>, <Post: 223232323212332>, <Post: 223232323212332>, <Post: dfsdfsd>, <Post: ffff>, <Post: fffgg>]>
+>>> Post.objects.count()
+16
+>>> Post.objects.filter(topic__board = board)
+<QuerySet [<Post: fsdfsdfsdafsdfsdfds>, <Post: 223232323212332>, <Post: 223232323212332>, <Post: 223232323212332>, <Post: 223232323212332>, <Post: 223232323212332>, <Post: dfsdfsd>, <Post: ffff>, <Post: devosp>, <Post: python freamwork>, <Post: bedredine>, <Post: dfsdfsd>]>
+>>> Post.objects.filter(topic__board = board).count()
+12
+>>> Post.objects.filter(topic__board = board).order_by('-created_dt')
+<QuerySet [<Post: ffff>, <Post: dfsdfsd>, <Post: 223232323212332>, <Post: 223232323212332>, <Post: 223232323212332>, <Post: 223232323212332>, <Post: 223232323212332>, <Post: dfsdfsd>, <Post: bedredine>, <Post: python freamwork>, <Post: devosp>, <Post: fsdfsdfsdafsdfsdfds>]>
+>>> Post.objects.filter(topic__board = board).order_by('-created_dt').first()
+<Post: ffff>
+
 
                      
 
