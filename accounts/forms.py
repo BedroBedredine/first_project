@@ -4,14 +4,13 @@ from django.contrib.auth.models import User
 
 
 class SignUpForm(UserCreationForm):
-    email = forms.CharField(max_length=255,required=True,widget=forms.EmailInput())
-    
-    class Meta:    
-        model=User
-        fields={'username','email','password1','password2'}
-
-    # email = forms.EmailField(required=True)
+    # email = forms.CharField(max_length=255,required=True,widget=forms.EmailInput())
     
     # class Meta:    
     #     model=User
-    #     fields=['username','email','password1','password2']
+    #     fields={'username','email','password1','password2'}
+    email = forms.EmailField(required=True,widget=forms.EmailInput())
+    
+    class Meta:    
+        model=User
+        fields=['username','email','password1','password2']
