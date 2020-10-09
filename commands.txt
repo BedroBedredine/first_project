@@ -38,6 +38,7 @@ py manage.py createsuperuser
 '''
 shell
 '''
+QuerySet1
 >>> from boards.models import Board
 >>> board = Board.objects.get(name='Web Application')
 >>> board.topics.all()
@@ -59,6 +60,41 @@ shell
 <Post: ffff>
 
 
+QuerySet2
+
+(venv) C:\Users\BedrO\Desktop\Django_Project\first_project>py manage.py shell
+Python 3.8.3 (tags/v3.8.3:6f8c832, May 13 2020, 22:20:19) [MSC v.1925 32 bit (Intel)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from boards.models import Board
+>>> board = Board.objects.get(name='Web Application')
+>>> from django.db.models import count
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+ImportError: cannot import name 'count' from 'django.db.models' (C:\Users\BedrO\Desktop\New folder\1proj\venv\lib\site-packages\django\db\models\__init__.py)
+>>> from django.db.models import Count
+>>> topics =  board.topics.order_by('-created_dt').annotate(comments=Count('posts'))
+>>> for topic in topics:
+...     print(topic.comments)
+...
+2
+1
+1
+8
+>>> for topic in topics:
+... print(topic.comments)
+  File "<console>", line 2
+    print(topic.comments)
+    ^
+IndentationError: expected an indented block
+>>> for topic in topics:
+...     print(topic.comments)
+...
+2
+1
+1
+8
+>>> exit()
                      
 
 
