@@ -1,0 +1,45 @@
+                                                ####### URL ####################
+                                                path('new_post/',views.new_post,name='new_post')
+                                                path('new_post/',views.NewPostView.as_view(),name='new_post')
+                                                
+                                                
+from .forms import NewTopicForm, PostForm
+from django.views.generic import View , CreateView
+
+
+def new_post(request):
+    if request.method == "POST":
+        form=PostFrom(reauest.Post)
+        if form.save()
+        return redirect('post_list')
+    else:
+        form = PostForm()
+    return render(request,'new_post.html',{'form':form})
+
+
+# ------------------------CBV______________________
+# https://docs.djangoproject.com/en/3.1/topics/class-based-views/
+# http://ccbv.co.uk/
+
+class NewPostView(View):
+    def render(self,request):
+        return render(request,'new_post.html',{'form':form})
+    
+    def post(self,request):
+        form = PostForm(request.Post)
+        if form.valid():
+            form.save.()
+            return redirect('post_list')
+        return render(request, 'new_post.html', {'form':form})
+    
+    def get(self,request):
+        form = PostForm()
+        return self.render(request)
+
+#---------------------GCBV_______________
+
+class NewPostView(CreateView):
+    model = Post
+    form_class = PostForm
+    success_url = reverse_lazy('post_list')
+    template_name = 'new_post.html'
