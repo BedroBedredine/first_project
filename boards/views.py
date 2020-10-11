@@ -12,9 +12,9 @@ from django.utils.decorators import method_decorator
 # Create your views here.
 
 
-def home(request):
-    boards = Board.objects.all()
-    return render(request,'home.html',{'boards':boards})
+# def home(request):
+#     boards = Board.objects.all()
+#     return render(request,'home.html',{'boards':boards})
 
 class BoardListView(ListView):
     model = Board
