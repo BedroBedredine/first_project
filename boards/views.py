@@ -64,8 +64,12 @@ def new_topic(request,board_id):
 
 def topic_posts(request,board_id,topic_id):
     topic = get_object_or_404(Topic,board__pk=board_id,pk=topic_id)
-    topic.views +=1
-    topic.save()
+    
+    session_key = 'view_topic_{}'.format(topic.pk)
+    if not request.session.get(session_key,False):
+        topic.views +=1
+        topic.save()
+        request.session[session_key] = True
     return render(request,'topic_posts.html',{'topic':topic})
 
 @login_required
@@ -78,6 +82,11 @@ def reply_topic(request,board_id,topic_id):
             post.topic = topic
             post.created_by = request.user
             post.save()
+            
+            topic.updated_by = request.user
+            topic.updated_dt = timezone.now()
+            topic.save()
+            
             return redirect('topic_posts',board_id=board_id, topic_id=topic_id)
     else:
         form = PostForm()
