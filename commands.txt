@@ -95,7 +95,59 @@ IndentationError: expected an indented block
 1
 8
 >>> exit()
-                     
 
+###########
+Pagination
+###########
+
+>>> from boards.models import Board, Topic, Post
+>>> from django.contrib.auth.models import User
+>>> user = User.objects.first()
+>>> board = Board.objects.get(name='Web Application')
+>>> for i in range(100):
+...     subject = 'topic test #'.format(i)
+...     topic = Topic.objects.create(subject=subject, board=board, created_by=user)                
+...	Post.objects.create(message="Test Post", topic=topic, created_by=user)
+
+>>> from boards.models import Topic
+>>> Topic.objects.count()
+308
+>>> Topic.objects.filter(board__name='Web Application').count()
+304
+>>> queryset= Topic.objects.filter(board__name='Web Application').count().order_by('-created_dt')
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: 'int' object has no attribute 'order_by'
+>>> queryset=Topic.objects.filter(board__name='Web Application').order_by('-created_dt')
+>>> from django.core.paginator import Paginator
+>>> paginator = Pginator(queryset,20)
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'Pginator' is not defined
+>>> paginator = Paginator(queryset,20)
+>>> paginator.count
+304
+>>> paginator.num_pages
+16
+>>> paginator.page_range
+range(1, 17)
+>>> paginator.page(2)
+<Page 2 of 16>
+>>> paginator.page(17)
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+  File "C:\Users\BedrO\Desktop\New folder\1proj\venv\lib\site-packages\django\core\paginator.py", line 73, in page
+    number = self.validate_number(number)
+  File "C:\Users\BedrO\Desktop\New folder\1proj\venv\lib\site-packages\django\core\paginator.py", line 55, in validate_number
+    raise EmptyPage(_('That page contains no results'))
+django.core.paginator.EmptyPage: That page contains no results
+>>> page = paginator.page(2)
+>>> page.has_next()
+True
+>>> page.has_previous()
+True
+>>> page.next_page_number()
+3
+>>>
 
 
