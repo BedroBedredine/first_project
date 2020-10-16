@@ -1,5 +1,9 @@
-from django.apps import AppConfig
+# from django.apps import AppConfig
+from suit.apps import DjangoSuitConfig
 
 
-class BoardsConfig(AppConfig):
-    name = 'boards'
+# class BoardsConfig(AppConfig):
+#     name = 'boards'
+class SuitConfig(DjangoSuitConfig):
+    # layout = "horizontal"
+    layout = "vertical"
